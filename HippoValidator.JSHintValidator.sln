@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HippoValidator.JsHintValidator", "HippoValidator.JSHintValidator\HippoValidator.JsHintValidator.csproj", "{20E62A46-202D-47B9-9DED-8452D6AFC429}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HippoValidator.JsHintValidator", "HippoValidator.JsHintValidator\HippoValidator.JsHintValidator.csproj", "{20E62A46-202D-47B9-9DED-8452D6AFC429}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HippoValidator.JsHintValidator.Tests", "HippoValidator.JsHintValidator.Tests\HippoValidator.JsHintValidator.Tests.csproj", "{463D6B24-50CE-44C6-B92C-6A0821F14D54}"
 EndProject

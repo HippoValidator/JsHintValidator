@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IJSHintValidator.cs" />
+    <Compile Include="IJsHintValidator.cs" />
     <Compile Include="JsHintValidator.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

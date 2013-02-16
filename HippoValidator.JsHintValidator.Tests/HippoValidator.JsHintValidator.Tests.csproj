@@ -49,7 +49,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HippoValidator.JSHintValidator\HippoValidator.JsHintValidator.csproj">
+    <ProjectReference Include="..\HippoValidator.JsHintValidator\HippoValidator.JsHintValidator.csproj">
       <Project>{20e62a46-202d-47b9-9ded-8452d6afc429}</Project>
       <Name>HippoValidator.JsHintValidator</Name>
     </ProjectReference>
