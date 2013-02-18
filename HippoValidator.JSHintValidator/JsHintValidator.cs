@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Jurassic;
+using Jurassic.Library;
 
 namespace HippoValidator.JsHintValidator
 {
@@ -27,9 +28,9 @@ namespace HippoValidator.JsHintValidator
             var result = new ValidationResult();
 
             _scriptEngine.Execute("var result = JSHINT('" + script + "', " + options.ToJson() + "), errors = JSHINT.errors;");
-            var errors = ((Jurassic.Library.ArrayInstance) _scriptEngine.GetGlobalValue("errors"))
+            var errors = ((ArrayInstance) _scriptEngine.GetGlobalValue("errors"))
                 .ElementValues
-                .OfType<Jurassic.Library.ObjectInstance>();
+                .OfType<ObjectInstance>();
 
             foreach (var error in errors.Where(error => error != null))
             {
@@ -46,17 +47,24 @@ namespace HippoValidator.JsHintValidator
             return result;
         }
 
-        private static T Get<T>(Jurassic.Library.ObjectInstance dic, string name, T defaultValue)
+        private static T Get<T>(ObjectInstance dictionary, string name, T defaultValue)
         {
-            var value = dic.GetPropertyValue(name);
-            T ret = defaultValue;
+            var value = dictionary.GetPropertyValue(name);
+            var toReturn = defaultValue;
             try
             {
-                if (defaultValue is string) ret = (T)(object)Convert.ToString(value);
-                else ret = (T)Convert.ChangeType(value, typeof(T));
+                if (defaultValue is string)
+                {
+                    toReturn = (T) (object) Convert.ToString(value);
+                }
+                else
+                {
+                    toReturn = (T) Convert.ChangeType(value, typeof (T));
+                }
             }
-            catch { }
-            return ret;
+            catch {}
+
+            return toReturn;
         }
    }
 }
