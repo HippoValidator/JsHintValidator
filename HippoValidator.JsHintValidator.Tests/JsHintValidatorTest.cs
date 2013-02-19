@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 
 namespace HippoValidator.JsHintValidator.Tests
 {
@@ -30,6 +31,35 @@ namespace HippoValidator.JsHintValidator.Tests
 
             // Assert
             Assert.That(result.Errors.Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void CanValidateScriptWithNewLine()
+        {
+            // Arrange
+            var validator = new JsHintValidator();
+
+            // Act
+            var result = validator.Validate(@"
+                $(document).ready(function () {
+                });
+            ", new Options());
+
+            // Assert
+            Assert.That(result, Is.Not.Null);
+        }
+
+        [Test]
+        public void CanValidateScriptWithSingleQuote()
+        {
+            // Arrange
+            var validator = new JsHintValidator();
+
+            // Act
+            var result = validator.Validate("$('.test');", new Options());
+
+            // Assert
+            Assert.That(result, Is.Not.Null);
         }
     }
 }
