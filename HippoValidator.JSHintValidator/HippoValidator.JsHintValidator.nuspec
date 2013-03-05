@@ -1,0 +1,18 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <version>$version$</version>
+    <authors>HippoValidator</authors>
+    <owners />
+    <dependencies />
+    <id>HippoValidator.JSHintValidator</id>
+    <title>HippoValidator.JSHintValidator</title>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Executes JSHint from .NET.</description>
+    <projectUrl>https://github.com/HippoValidator/JsHintValidator</projectUrl>
+  </metadata>
+  <files>
+    <file src="bin\$Configuration$\HippoValidator.JsHintValidator.dll" target="lib\net40\HippoValidator.JsHintValidator.dll" />
+    <file src="bin\$Configuration$\HippoValidator.JsHintValidator.pdb" target="lib\net40\HippoValidator.JsHintValidator.pdb" />
+  </files>
+</package>

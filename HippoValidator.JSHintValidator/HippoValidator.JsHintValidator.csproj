@@ -50,6 +50,7 @@
     <Compile Include="ValidationResult.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="HippoValidator.JsHintValidator.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
