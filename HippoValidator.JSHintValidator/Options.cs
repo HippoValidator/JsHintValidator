@@ -105,6 +105,11 @@ namespace HippoValidator.JsHintValidator
         public bool Immed { get; set; }
 
         /// <summary>
+        /// This option enforces specific tab width for your code.
+        /// </summary>
+        public int? Indent { get; set; }
+
+        /// <summary>
         /// If the `__iterator__` property should be allowed.
         /// </summary>
         public bool Iterator { get; set; }
@@ -138,6 +143,31 @@ namespace HippoValidator.JsHintValidator
         /// If functions should be allowed to be defined within loops.
         /// </summary>
         public bool Loopfunc { get; set; }
+
+        /// <summary>
+        /// This option lets you set the max number of formal parameters allowed per function.
+        /// </summary>
+        public int? Maxparams { get; set; }
+
+        /// <summary>
+        /// This option lets you control how nested do you want your blocks to be.
+        /// </summary>
+        public int? Maxdepth { get; set; }
+
+        /// <summary>
+        /// This option lets you set the max number of statements allowed per function.
+        /// </summary>
+        public int? Maxstatements { get; set; }
+
+        /// <summary>
+        /// This option lets you control cyclomatic complexity throughout your code. Cyclomatic complexity measures the number of linearly independent paths through a program's source code.
+        /// </summary>
+        public int? Maxcomplexity { get; set; }
+
+        /// <summary>
+        /// This option lets you set the maximum length of a line.
+        /// </summary>
+        public int? Maxlen { get; set; }
 
         /// <summary>
         /// If MooTools globals should be predefined.
@@ -190,11 +220,6 @@ namespace HippoValidator.JsHintValidator
         public bool Onevar { get; set; }
 
         /// <summary>
-        /// If one case switch statements should be allowed.
-        /// </summary>
-        public bool Onecase { get; set; }
-
-        /// <summary>
         /// If the scan should stop on first error.
         /// </summary>
         public bool Passfail { get; set; }
@@ -213,14 +238,9 @@ namespace HippoValidator.JsHintValidator
         public bool Prototypejs { get; set; }
 
         /// <summary>
-        /// If unescaped first/last dash (-) inside brackets should be tolerated.
+        /// This option enforces the consistency of quotation marks used throughout your code. It accepts three values: true if you don't want to enforce one particular style but want some consistency, "single" if you want to allow only single quotes and "double" if you want to allow only double quotes.
         /// </summary>
-        public bool Regexdash { get; set; }
-
-        /// <summary>
-        /// If the . should not be allowed in regexp literals.
-        /// </summary>
-        public bool Regexp { get; set; }
+        public QuotationMarks? Quotmark { get; set; }
 
         /// <summary>
         /// If the Rhino environment globals should be predefined.
@@ -278,11 +298,6 @@ namespace HippoValidator.JsHintValidator
         public bool Validthis { get; set; }
 
         /// <summary>
-        /// If with statements should be allowed.
-        /// </summary>
-        public bool Withstmt { get; set; }
-
-        /// <summary>
         /// If strict whitespace rules apply.
         /// </summary>
         public bool White { get; set; }
@@ -308,11 +323,53 @@ namespace HippoValidator.JsHintValidator
             sb.Append("{");
             foreach (var property in GetType().GetProperties())
             {
-                sb.Append(property.Name.ToLower()).Append(":").Append(property.GetValue(this, null).ToString().ToLower()).Append(",");
+                var value = property.GetValue(this, null);
+                if (value == null) continue;
+
+                value = HandleQuestionMarks(value);
+                value = HandleStrings(value);
+
+                sb.Append(property.Name.ToLower()).Append(":").Append(value.ToString().ToLower()).Append(",");
             }
             sb.Append("}");
 
             return sb.ToString().Replace(",}", "}");
+        }
+
+        private object HandleStrings(object value)
+        {
+            if (value is string)
+            {
+                return "\"" + value + "\"";
+            }
+
+            return value;
+        }
+
+        private object HandleQuestionMarks(object value)
+        {
+            if (value is QuotationMarks)
+            {
+                var actualValue = (QuotationMarks)value;
+                switch (actualValue)
+                {
+                    case QuotationMarks.Double:
+                        return "double";
+                    case QuotationMarks.True:
+                        return true;
+                    case QuotationMarks.Single:
+                        return "single";
+                }
+            }
+
+            return value;
+        }
+
+        public enum QuotationMarks
+        {
+            True,
+            Single,
+            Double,
         }
     }
 }
