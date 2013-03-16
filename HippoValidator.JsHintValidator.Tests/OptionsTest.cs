@@ -31,5 +31,57 @@ namespace HippoValidator.JsHintValidator.Tests
             // Assert
             Assert.That(actual, Is.EqualTo(expected));
         }
+
+        [Test]
+        public void CanGenerateOptionsWithQuotationMarkDouble()
+        {
+            // Arrange
+            var options = new Options {Quotmark = Options.QuotationMarks.Double};
+
+            // Act
+            var js = options.ToJS();
+
+            // Assert
+            Assert.That(js, Is.StringContaining("quotmark:\"double\""));
+        }
+
+        [Test]
+        public void CanGenerateOptionsWithQuotationMarkTrue()
+        {
+            // Arrange
+            var options = new Options { Quotmark = Options.QuotationMarks.True };
+
+            // Act
+            var js = options.ToJS();
+
+            // Assert
+            Assert.That(js, Is.StringContaining("quotmark:true"));
+        }
+
+        [Test]
+        public void NoOptionsIsGeneratedOnNullInt()
+        {
+            // Arrange
+            var options = new Options {Maxlen = null};
+
+            // Act
+            var js = options.ToJS();
+
+            // Assert
+            Assert.That(js, Is.Not.StringContaining("maxlen:"));
+        }
+
+        [Test]
+        public void CanHandleInt()
+        {
+            // Arrange
+            var options = new Options {Maxlen = 42};
+
+            // Act
+            var js = options.ToJS();
+
+            // Assert
+            Assert.That(js, Is.StringContaining("maxlen:42"));
+        }
     }
 }

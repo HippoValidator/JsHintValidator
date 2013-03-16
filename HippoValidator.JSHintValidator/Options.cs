@@ -317,7 +317,7 @@ namespace HippoValidator.JsHintValidator
         /// </summary>
         public bool Yui { get; set; }
 
-        public string ToJson()
+        public string ToJS()
         {
             var sb = new StringBuilder();
             sb.Append("{");
@@ -327,23 +327,12 @@ namespace HippoValidator.JsHintValidator
                 if (value == null) continue;
 
                 value = HandleQuestionMarks(value);
-                value = HandleStrings(value);
 
                 sb.Append(property.Name.ToLower()).Append(":").Append(value.ToString().ToLower()).Append(",");
             }
             sb.Append("}");
 
             return sb.ToString().Replace(",}", "}");
-        }
-
-        private object HandleStrings(object value)
-        {
-            if (value is string)
-            {
-                return "\"" + value + "\"";
-            }
-
-            return value;
         }
 
         private object HandleQuestionMarks(object value)
@@ -354,11 +343,11 @@ namespace HippoValidator.JsHintValidator
                 switch (actualValue)
                 {
                     case QuotationMarks.Double:
-                        return "double";
+                        return "\"double\"";
                     case QuotationMarks.True:
                         return true;
                     case QuotationMarks.Single:
-                        return "single";
+                        return "\"single\"";
                 }
             }
 
