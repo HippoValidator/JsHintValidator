@@ -61,5 +61,19 @@ namespace HippoValidator.JsHintValidator.Tests
             // Assert
             Assert.That(result, Is.Not.Null);
         }
+
+        [Test]
+        public void CanValidateScriptWithOctalEscapeSequence()
+        {
+            // Arrange
+            var script = "var x = \"\\012\";";
+            var validator = new JsHintValidator();
+            
+            // Act
+            var result = validator.Validate(script, new Options());
+
+            // Assert
+            Assert.That(result, Is.Not.Null);
+        }
     }
 }

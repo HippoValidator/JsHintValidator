@@ -14,6 +14,7 @@ namespace HippoValidator.JsHintValidator
         public JsHintValidator()
         {
             _scriptEngine = new ScriptEngine();
+            _scriptEngine.CompatibilityMode = CompatibilityMode.ECMAScript3;
             var jsHintScript = typeof(JsHintValidator).Assembly.GetManifestResourceStream("HippoValidator.JsHintValidator.jshint.js");
             Debug.Assert(jsHintScript != null, "jsHintScript != null");
             using (var reader = new StreamReader(jsHintScript))
