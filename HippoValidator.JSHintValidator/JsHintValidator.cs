@@ -29,8 +29,9 @@ namespace HippoValidator.JsHintValidator
             var result = new ValidationResult();
 
             var fix = script
-                .Replace("'", "\\'")
+                .Replace("'", "\"")
                 .Replace(Environment.NewLine, string.Empty)
+                .Replace("\n", string.Empty)
                 .Trim();
 
             _scriptEngine.Execute("var result = JSHINT('" + fix + "', " + options.ToJS() + "), errors = JSHINT.errors;");
