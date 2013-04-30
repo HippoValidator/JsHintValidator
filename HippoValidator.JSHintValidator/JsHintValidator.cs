@@ -28,13 +28,8 @@ namespace HippoValidator.JsHintValidator
             if (options == null) options = new Options();
             var result = new ValidationResult();
 
-            var fix = script
-                .Replace("'", "\"")
-                .Replace(Environment.NewLine, string.Empty)
-                .Replace("\n", string.Empty)
-                .Trim();
-
-            _scriptEngine.Execute("var result = JSHINT('" + fix + "', " + options.ToJS() + "), errors = JSHINT.errors;");
+            _scriptEngine.SetGlobalValue("script", script);
+            _scriptEngine.Execute("var result = JSHINT(script, " + options.ToJS() + "), errors = JSHINT.errors;");
             var errors = ((ArrayInstance) _scriptEngine.GetGlobalValue("errors"))
                 .ElementValues
                 .OfType<ObjectInstance>();
